@@ -92,8 +92,11 @@ async function setAnalysisOptions(isWhite) {
 
     await waitForElm('.switch');
 
-    if (!isWhite) sendKey(document, 'f');
-    setTimeout(() => sendKey(document, 'l'), 500);
+    sendKey(document, 'l');
+    setTimeout(() => {
+        if (isWhite || document.querySelector('coords.black')) return;
+        sendKey(document, 'f');
+    }, 1000);
 }
 
 async function fillPgn(pgnResult) {

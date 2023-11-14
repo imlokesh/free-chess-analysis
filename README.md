@@ -9,10 +9,10 @@ This chrome extension will help you analyze your chess.com games on lichess. Jus
 
 ## How It Works
 
-- User clicks the extension icon when on a page like `chess.com/game/live/*`
-- The extension gets the pgn from chess.com share option.
-- The extension creates a new tab with url `lichess.org/paste` and imports your game.
-- The extension will automatically turn on local analysis and flip the board if you were black.
+-   User clicks the extension icon when on a page like `chess.com/game/live/*`
+-   The extension gets the pgn from chess.com share option.
+-   The extension creates a new tab with url `lichess.org/paste` and imports your game.
+-   The extension will automatically turn on local analysis and flip the board if you were black.
 
 ## Suggestions
 

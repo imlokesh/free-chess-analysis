@@ -1,6 +1,6 @@
 const rule = {
     conditions: [
-        new chrome.declarativeContent.PageStateMatcher({ pageUrl: { hostSuffix: '.chess.com', schemes: ['https'] } })
+        new chrome.declarativeContent.PageStateMatcher({ pageUrl: { hostSuffix: ".chess.com", schemes: ["https"] } })
     ],
     actions: [new chrome.declarativeContent.ShowAction()]
 };
@@ -15,20 +15,21 @@ chrome.runtime.onInstalled.addListener(function (details) {
 let lichessTab, pgnResult;
 
 chrome.action.onClicked.addListener(async (tab) => {
-
     pgnResult = lichessTab = null;
 
-    pgnResult = (await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        func: getPgn
-    }))[0].result;
+    pgnResult = (
+        await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            func: getPgn
+        })
+    )[0].result;
 
     lichessTab = await chrome.tabs.create({ url: "https://lichess.org/paste", index: tab.index + 1 });
     chrome.tabs.onUpdated.addListener(lichessImport);
 });
 
 async function lichessImport(id, changeInfo, tab) {
-    if (id != lichessTab.id || changeInfo?.status != 'complete') {
+    if (id != lichessTab.id || changeInfo?.status != "complete") {
         return;
     }
 
@@ -43,7 +44,7 @@ async function lichessImport(id, changeInfo, tab) {
 }
 
 async function lichessAfterImport(id, changeInfo, tab) {
-    if (id != lichessTab.id || changeInfo?.status != 'complete') {
+    if (id != lichessTab.id || changeInfo?.status != "complete") {
         return;
     }
 
@@ -57,14 +58,13 @@ async function lichessAfterImport(id, changeInfo, tab) {
 }
 
 async function setAnalysisOptions(isWhite) {
-
     function waitForElm(selector) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             if (document.querySelector(selector)) {
                 return resolve(document.querySelector(selector));
             }
 
-            const observer = new MutationObserver(mutations => {
+            const observer = new MutationObserver((mutations) => {
                 if (document.querySelector(selector)) {
                     resolve(document.querySelector(selector));
                     observer.disconnect();
@@ -90,27 +90,26 @@ async function setAnalysisOptions(isWhite) {
         simulateKey(element, keyCode, "keypress");
     }
 
-    await waitForElm('.switch');
+    await waitForElm(".switch");
 
     setTimeout(() => {
-        sendKey(document, 'l');
+        sendKey(document, "l");
     }, 1000);
 
     setTimeout(() => {
-        if (isWhite || document.querySelector('coords.black')) return;
-        sendKey(document, 'f');
+        if (isWhite || document.querySelector("coords.black")) return;
+        sendKey(document, "f");
     }, 2000);
 }
 
 async function fillPgn(pgnResult) {
-
     function waitForElm(selector) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             if (document.querySelector(selector)) {
                 return resolve(document.querySelector(selector));
             }
 
-            const observer = new MutationObserver(mutations => {
+            const observer = new MutationObserver((mutations) => {
                 if (document.querySelector(selector)) {
                     resolve(document.querySelector(selector));
                     observer.disconnect();
@@ -124,20 +123,19 @@ async function fillPgn(pgnResult) {
         });
     }
 
-    (await waitForElm('#form3-pgn')).value = pgnResult.pgn;
-    (await waitForElm('#form3-analyse')).click();
-    (await waitForElm('form.form3 button[type=submit]')).click();
+    (await waitForElm("#form3-pgn")).value = pgnResult.pgn;
+    (await waitForElm("#form3-analyse")).click();
+    (await waitForElm("form.form3 button[type=submit]")).click();
 }
 
 async function getPgn() {
-
     function waitForElm(selector) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             if (document.querySelector(selector)) {
                 return resolve(document.querySelector(selector));
             }
 
-            const observer = new MutationObserver(mutations => {
+            const observer = new MutationObserver((mutations) => {
                 if (document.querySelector(selector)) {
                     resolve(document.querySelector(selector));
                     observer.disconnect();
@@ -154,11 +152,12 @@ async function getPgn() {
     let username = document.querySelectorAll('[data-test-element="user-tagline-username"]')[1].text;
 
     (await waitForElm('button[data-cy="daily-games-share-btn"],button[data-cy="sidebar-share-button"]')).click();
-    (await waitForElm('.share-menu-tab-selector-component .share-menu-tab-selector-tab')).click();
-    let pgn = (await waitForElm('textarea[name=pgn]')).value;
+    (await waitForElm(".share-menu-tab-selector-component .share-menu-tab-selector-tab")).click();
+    let pgn = (await waitForElm("textarea[name=pgn]")).value;
     (await waitForElm('[data-cy="share-menu-close"]')).click();
 
     return {
-        pgn, isWhite: pgn.includes(`[White "${username}"]`)
-    }
+        pgn,
+        isWhite: pgn.includes(`[White "${username}"]`)
+    };
 }

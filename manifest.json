@@ -11,15 +11,8 @@
     "background": {
         "service_worker": "background.js"
     },
-    "permissions": [
-        "declarativeContent",
-        "activeTab",
-        "scripting"
-    ],
-    "host_permissions": [
-        "https://www.chess.com/*",
-        "https://lichess.org/*"
-    ],
+    "permissions": ["declarativeContent", "activeTab", "scripting"],
+    "host_permissions": ["https://www.chess.com/*", "https://lichess.org/*"],
     "action": {
         "default_title": "Analyze on Lichess",
         "default_icon": {

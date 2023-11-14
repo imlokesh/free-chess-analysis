@@ -1,0 +1,33 @@
+name: tagged-release
+
+on:
+    push:
+        tags:
+            - "v*"
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v2
+
+            - name: Get Tag Name
+              id: get_tag
+              run: echo "::set-output name=tagName::${GITHUB_REF#refs/tags/}"
+
+            - name: Zip Source Files
+              run: |
+                  cd src/
+                  zip -r "../free-chess-analysis-${{ steps.get_tag.outputs.tagName }}.zip" .
+                  cd ..
+
+            - name: Create Release
+              uses: marvinpinto/action-automatic-releases@latest
+              with:
+                  repo_token: ${{ secrets.GITHUB_TOKEN }}
+                  title: "${{ steps.get_tag.outputs.tagName }}"
+                  files: |
+                      free-chess-analysis-${{ steps.get_tag.outputs.tagName }}.zip
+                  draft: false
+                  prerelease: false

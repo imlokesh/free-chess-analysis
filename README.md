@@ -5,7 +5,7 @@
 
 This chrome extension will help you analyze your chess.com games on lichess. Just click the icon in your extension bar when you're on a chess.com game and a new lichess tab will open with your game.
 
-<img src='https://raw.githubusercontent.com/imlokesh/free-chess-analysis/main/banners/2.png' alt='Free Chess Analysis' >
+<img src='https://raw.githubusercontent.com/imlokesh/free-chess-analysis/main/src/banners/2.png' alt='Free Chess Analysis' >
 
 ## How It Works
 

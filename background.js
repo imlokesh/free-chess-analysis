@@ -78,28 +78,35 @@ async function setAnalysisOptions(isWhite) {
         });
     }
 
-    function simulateKey(target, keyCode, eventName) {
-        const event = new KeyboardEvent(eventName, { keyCode });
-        target.dispatchEvent(event);
+    function timeout(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    function sendKey(element, key) {
-        const keyCode = key.charCodeAt(0);
-        simulateKey(element, keyCode, "keydown");
-        simulateKey(element, keyCode, "keyup");
-        simulateKey(element, keyCode, "keypress");
+    await waitForElm("#analyse-toggle-ceval");
+
+    await timeout(1000);
+
+    if (!document.querySelector("#analyse-toggle-ceval").checked) {
+        document.querySelector("label[for=analyse-toggle-ceval]").click();
     }
 
-    await waitForElm(".switch");
+    await timeout(2000);
 
-    setTimeout(() => {
-        sendKey(document, "l");
-    }, 1000);
+    if (isWhite || document.querySelector("coords.black")) return;
 
-    setTimeout(() => {
-        if (isWhite || document.querySelector("coords.black")) return;
-        sendKey(document, "f");
-    }, 2000);
+    document
+        .querySelector('[data-act="menu"]')
+        .dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true }));
+
+    await timeout(500);
+
+    document.querySelector(".action-menu__tools a").click();
+
+    await timeout(500);
+
+    document
+        .querySelector('[data-act="menu"]')
+        .dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true }));
 }
 
 async function fillPgn(pgnResult) {

@@ -156,7 +156,13 @@ async function getPgn() {
         });
     }
 
-    let username = document.querySelectorAll('[data-test-element="user-tagline-username"]')[1].text;
+    let username = null;
+
+    let players = document.querySelectorAll(
+        '[data-test-element="user-tagline-username"],a.user-username-link.user-tagline-compact-username'
+    );
+
+    if (players && players[1]) username = players[1].text;
 
     (await waitForElm('button[data-cy="daily-games-share-btn"],button[data-cy="sidebar-share-button"]')).click();
     (await waitForElm(".share-menu-tab-selector-component .share-menu-tab-selector-tab")).click();
@@ -165,6 +171,6 @@ async function getPgn() {
 
     return {
         pgn,
-        isWhite: pgn.includes(`[White "${username}"]`)
+        isWhite: username == null || pgn.includes(`[White "${username}"]`)
     };
 }

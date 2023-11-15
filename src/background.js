@@ -157,6 +157,12 @@ async function getPgn() {
     }
 
     let username = null;
+    let focusMode = document.body.classList.contains("theatre-mode");
+
+    // exit focus mode
+    if (focusMode) {
+        document.querySelector("#board-controls-focus").click();
+    }
 
     let players = document.querySelectorAll(
         '[data-test-element="user-tagline-username"],a.user-username-link.user-tagline-compact-username'
@@ -168,6 +174,11 @@ async function getPgn() {
     (await waitForElm(".share-menu-tab-selector-component .share-menu-tab-selector-tab")).click();
     let pgn = (await waitForElm("textarea[name=pgn]")).value;
     (await waitForElm('[data-cy="share-menu-close"]')).click();
+
+    // go to focus mode again
+    if (focusMode) {
+        document.querySelector("#board-controls-focus").click();
+    }
 
     return {
         pgn,

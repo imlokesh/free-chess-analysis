@@ -170,10 +170,10 @@ async function getPgn() {
 
     if (players && players[1]) username = players[1].text;
 
-    (await waitForElm('button[data-cy="daily-games-share-btn"],button[data-cy="sidebar-share-button"]')).click();
+    (await waitForElm("button.share")).click();
     (await waitForElm(".share-menu-tab-selector-component .share-menu-tab-selector-tab")).click();
     let pgn = (await waitForElm("textarea[name=pgn]")).value;
-    (await waitForElm('[data-cy="share-menu-close"]')).click();
+    (await waitForElm('#share-modal button[aria-label="Close"]')).click();
 
     // go to focus mode again
     if (focusMode) {

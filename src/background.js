@@ -171,7 +171,7 @@ async function getPgn() {
     if (players && players[1]) username = players[1].text;
 
     (await waitForElm("button.share")).click();
-    (await waitForElm(".share-menu-tab-selector-component .share-menu-tab-selector-tab")).click();
+    (await waitForElm("#tab-pgn")).click();
     let pgn = (await waitForElm("textarea[name=pgn]")).value;
     (await waitForElm('#share-modal button[aria-label="Close"]')).click();
 

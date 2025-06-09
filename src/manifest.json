@@ -23,5 +23,11 @@
             "128": "img/128.png",
             "512": "img/512.png"
         }
-    }
+    },
+    "web_accessible_resources": [
+        {
+            "resources": ["img/48.png"],
+            "matches": ["<all_urls>"]
+        }
+    ]
 }

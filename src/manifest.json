@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Free Chess Analysis",
     "description": "Analyze your chess.com games on lichess for free. ",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "icons": {
         "64": "img/64.png",
         "128": "img/128.png",

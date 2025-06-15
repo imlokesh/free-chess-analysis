@@ -18,7 +18,6 @@
     chrome.runtime.sendMessage({ type: "log", content: "flipping board" });
     showToastMessage("Flipping board...", 1500);
     const menuBtn = document.querySelector('[data-act="menu"]');
-    showToastMessage(JSON.stringify(menuBtn));
     menuBtn?.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
 
     await delay(500);

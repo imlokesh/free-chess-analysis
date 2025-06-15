@@ -10,11 +10,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Get Tag Name
               id: get_tag
-              run: echo "::set-output name=tagName::${GITHUB_REF#refs/tags/}"
+              run: echo "tagName=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
             - name: Zip Source Files
               run: |

@@ -17,7 +17,7 @@ async function getPgn() {
 
     chrome.runtime.sendMessage({ type: "log", content: `username: ${username}` });
 
-    (await waitForElm("button.share"))?.click();
+    (await waitForElm("[aria-label=Share]"))?.click();
     (await waitForElm("#tab-pgn"))?.click();
 
     const textarea = await waitForElm("textarea[name=pgn]");

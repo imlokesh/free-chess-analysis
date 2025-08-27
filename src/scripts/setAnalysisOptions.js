@@ -18,8 +18,8 @@
     chrome.runtime.sendMessage({ type: "log", content: "flipping board" });
     showToastMessage("Flipping board...", 1500);
     const menuBtn = document.querySelector('[data-act="menu"]');
-    menuBtn?.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
-
+    menuBtn?.dispatchEvent(new MouseEvent("pointerdown", { bubbles: true }));
+    await waitForElm(".action-menu__tools a");
     await delay(500);
 
     document.querySelector(".action-menu__tools a")?.click();
